@@ -1,0 +1,98 @@
+/*
+Minimum Permutation
+Time limit: 1000 ms
+Memory limit: 256 MB
+
+You are given an array AA of size NN and a set SS with MM elements. Each number from 11 to N + MN+M occurs exactly once in either AA or SS.
+
+You need to insert the elements from the set SS into the array AA in order to obtain the lexicographically smallest permutation.
+
+Note: A Sequence X_{1..n}X
+​1..n
+​​ , of the same length as a sequence Y_{1..n}Y
+​1..n
+​​ , is considered lexicographically smaller than Y_{1..n}Y
+​1..n
+​​  if, and only if, there exists an index jj for which X_{i}X
+​i
+​​  = Y_{i}Y
+​i
+​​  for 1 \le i \lt j1≤i<j, and X_{j} \lt Y_{j}X
+​j
+​​ <Y
+​j
+​​ .
+
+Standard input
+The first line contains the numbers NN and MM. The second line contains NN integers corresponding to the elements of AA. The third line contains MM integers corresponding to the elements of SS.
+
+Standard output
+The output should contain the elements of the lexicographically smallest permutation, separated by single spaces.
+
+Constraints and notes
+-1≤N≤10^5
+-1≤M≤10^5
+-2≤N+M≤10^5
+All the elements are unique and between 11 and N + M
+*/
+
+
+
+#include <stdio.h>
+
+void sort(int* arr, int length);
+void permutation(int* n, int* m, int* all, int length, int n_length, int m_length);
+
+int main() {
+   int n, m;
+   scanf("%d %d", &n, &m);
+   
+   int n_array[n]; 
+   int m_array[m];
+   int all[n+m];
+   
+   for(int i = 0; i < n; i++) {
+       scanf("%d", n_array + i); 
+   }
+   
+   for(int i = 0; i < m; i++) {
+       scanf("%d", m_array + i); 
+   }
+   
+   sort(m_array, m);
+   permutation(n_array, m_array, all, (n+m),n ,m);
+   
+   for(int i = 0; i < (n+m); i++) {
+       printf("%d ", all[i]);
+   }
+}
+
+void sort(int* arr, int length) {
+    for(int i = 0; i < length; i++) {
+        for(int j = i ; j < length; j++)
+            if (arr[i] > arr[j]) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+    }
+}
+
+void permutation(int* n, int* m, int* all, int length, int n_length, int m_length) {
+    
+     int m_count = 0, n_count = 0;
+    
+     for(int i = 0; i < length; i++) {
+        
+        if(m[m_count] > n[n_count] || m_count == m_length) {
+            all[i] = n[n_count];
+            n_count++;
+        }
+       
+        else {
+            all[i] = m[m_count];
+            m_count++;
+        }
+        
+     }
+}
