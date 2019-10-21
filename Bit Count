@@ -1,0 +1,32 @@
+/*
+You are given an integer NN that can be represented on 3232 bits. Implement a function that counts the numbers of bits set to 11 in NN's binary representation.
+
+Desired solution
+Try to find something faster than iterating through all the bits.
+
+Standard input
+The first line contains a single integer NN.
+
+Standard output
+Output a single number, representing the number of bits set to 11 in the binary representation.
+*/
+
+#include <stdio.h>
+
+int count_bits(int x) {
+    int i = 0;
+    while(x != 0) {
+        if(x % 2 == 1) {
+            i++;
+        }
+        x = x/2;
+    }
+    return i;
+}
+
+int main() {
+    int a;
+    scanf("%d", &a);
+    printf("%i", count_bits(a));
+    return 0;
+}
