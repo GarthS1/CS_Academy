@@ -1,0 +1,50 @@
+/*
+Donkey Paradox
+Time limit: 1000 ms
+Memory limit: 128 MB
+
+On a field represented as a matrix of NN rows and MM columns there is a donkey and two haystacks.
+
+The donkey is really hungry and he wants to get to a haystack as fast as possible. He can walk in four directions: up, down, left or right. The paradox of the donkey is that if the two haystacks are equally close to him he won't be able to decide which one to choose and he will starve to death.
+
+You are given the cells of the haystackes, but you don't know where the donkey is. Compute the number of cells where the donkey will starve if he's there.
+
+Standard input
+The first line contains the two integers NN and MM.
+
+The second line contains two integers representing the row and the column of the first haystack.
+
+The third line contains two integers representing the row and the column of the second haystack.
+
+Standard output
+Output a single number representing the number of cells where the donkey will starve if he's there.
+
+Constraints and notes
+2≤N,M≤200
+The haystacks and the donkey are situated in three different cells.
+The donkey takes into consideration only shortest routes to the haystacks.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int distance(int x1, int y1, int x2, int y2) {
+    return abs(x1 - x2) + abs(y1 - y2);
+}
+
+
+int main() {
+    int rows, columns, first_row, first_column, second_row, second_column, x = 0;
+    scanf("%d %d %d %d %d %d", &rows, &columns, &first_row, &first_column, &second_row, &second_column);
+    for(int i = 1; i <= rows; i++) {
+        for(int j = 1; j <= columns; j++) {
+            if((i != first_row || j != first_column) && (i != second_row || j != second_column)) {
+                if(distance(i, j, first_row, first_column) == distance(i, j, second_row, second_column)) {
+                    x++;
+                }
+            }
+        }
+    }
+    printf("%i", x);
+    return 0;
+}
